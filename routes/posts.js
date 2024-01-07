@@ -62,16 +62,31 @@ router.post("/", async (req, res) => {
   }
 });
 
-
 router.patch("/:id", async (req, res) => {
-    try {
-      await queryPostgres(
-        "UPDATE posts SET title = '" + req.body.title + "', " + "content = '" + req.body.content + "'" + "WHERE id = " + req.params.id
-      );
-      res.send({ message: "Row has been updated", success: true });
-    } catch (err) {
-      res.send(err);
-    }
-  });
+  try {
+    await queryPostgres(
+      "UPDATE posts SET title = '" +
+        req.body.title +
+        "', " +
+        "content = '" +
+        req.body.content +
+        "'" +
+        "WHERE id = " +
+        req.params.id
+    );
+    res.send({ message: "Row has been updated", success: true });
+  } catch (err) {
+    res.send(err);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  try {
+    await queryPostgres("DELETE FROM posts WHERE id = " + req.params.id);
+    res.send({ message: "Row has been deleted", success: true });
+  } catch (err) {
+    res.send(err);
+  }
+});
 
 module.exports = router;
