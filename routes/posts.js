@@ -5,11 +5,14 @@ const { Pool } = require("pg");
 const pool = new Pool({
   connectionString: process.env.CONNECTION_STRING,
   ssl: {
-    rejectUnauthorized: false,
-  },
+    rejectUnauthorized : false
+  }
 });
 
-router.get("/", (req, res) => {});
+router.get("/", (req, res) => {
+    console.log("hey")
+    res.send({ success: true })
+});
 
 router.get("/db", async (req, res) => {
   try {
@@ -19,6 +22,8 @@ router.get("/db", async (req, res) => {
       results: result ? result.rows : null,
     };
     console.log(results);
+    client.release();
+    res.send({ success: true })
   } catch (err) {
     console.error(err);
     res.send("Error " + err);
