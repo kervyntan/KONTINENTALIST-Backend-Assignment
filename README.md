@@ -11,3 +11,4 @@ node .
 
 # Calling the API
 - Send calls to API via Postman through different RESTFul conventions eg. GET, POST, PATCH, DELETE
+(http://localhost:2000/posts)
