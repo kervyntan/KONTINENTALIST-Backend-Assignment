@@ -19,7 +19,11 @@ const queryPostgres = async (query = "SELECT * FROM posts") => {
 router.get("/", async (req, res) => {
   try {
     const results = await queryPostgres();
-    res.send(results);
+    if (results.length == 0) {
+        res.send({ message : "Table is empty."});
+    } else {
+        res.send(results);
+    }
   } catch (err) {
     console.error(err);
     res.send("Error " + err);
@@ -29,7 +33,11 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const results = await queryPostgres(`SELECT * FROM posts WHERE id = ` + req.params.id);
-    res.send(results);
+    if (results.length == 0) {
+        res.send({ message : "Row is not found, pleaes try another id."});
+    } else {
+        res.send(results);
+    }
   } catch (err) {
     console.error(err);
     res.send("Error " + err);
